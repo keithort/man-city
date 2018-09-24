@@ -17,9 +17,10 @@ class Team extends Component {
     dbPlayers.once("value").then(snapshot => {
       const players = dbLooper(snapshot);
       let promises = [];
+
       for (let key in players) {
         promises.push(
-          new Promise((res, rej) => {
+          new Promise((resolve, reject) => {
             firebase
               .storage()
               .ref("players")
@@ -27,11 +28,12 @@ class Team extends Component {
               .getDownloadURL()
               .then(url => {
                 players[key].url = url;
-                res();
+                resolve();
               });
           })
         );
       }
+
       Promise.all(promises).then(() => {
         this.setState({
           loading: false,

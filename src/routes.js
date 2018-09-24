@@ -5,9 +5,11 @@ import { Switch } from "react-router-dom";
 import PrivateRoutes from "./Components/AuthRoutes/PrivateRoutes";
 import PublicRoutes from "./Components/AuthRoutes/PublicRoutes";
 
+import NotFound from "./Components/UI/404";
 import Home from "./Components/Home";
 import SignIn from "./Components/SignIn";
 import Team from "./Components/Team";
+import Matches from "./Components/Matches";
 
 import Dashboard from "./Components/Admin/Dashboard";
 import AdminMatches from "./Components/Admin/Matches";
@@ -78,11 +80,19 @@ const Routes = props => {
         />
         <PublicRoutes
           {...props}
+          path="/matches"
+          exact
+          component={Matches}
+          restricted={false}
+        />
+        <PublicRoutes
+          {...props}
           path="/sign_in"
           exact
           component={SignIn}
           restricted={true}
         />
+        <PublicRoutes {...props} component={NotFound} />
       </Switch>
     </Layout>
   );
